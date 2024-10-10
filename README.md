@@ -10,7 +10,8 @@ Example Usage:
 python3 Collect_download_statistics.py "2022-05-20T00:00:00Z" "2022-05-21T00:00:00Z"
 
 
-**-Collect_all_unique_handles.py**
+**-Collect_all_unique_handles.py**:
+
 This script compiles a list of items with unique handles from a Solr database into a CSV file.
 
 Usage:
