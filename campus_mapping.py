@@ -3,9 +3,9 @@ import pandas as pd
 import pdb
 
 # Read CSV files A, B, and campus_uuid_list
-file_a = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/mdsoar-stats.csv')
-file_b = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/all_items_unique_handles.csv')
-campus_uuid_list = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/campusuuidlist.csv')
+file_a = pd.read_csv('mdsoar-stats.csv')
+file_b = pd.read_csv('all_unique_handles.csv')
+campus_uuid_list = pd.read_csv('campusuuidlist.csv')
 
 # Function to process 'Page path and screen class' column and match with file B
 def process_page_path(page_path):
