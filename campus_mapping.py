@@ -2,12 +2,12 @@ import csv
 import pandas as pd
 import pdb
 
-# Read CSV files A, B, and campus_uuid_list
+# Read CSV files mdsoar-stats, all_unique_handles, and campus_uuid_list
 file_a = pd.read_csv('mdsoar-stats.csv')
 file_b = pd.read_csv('all_unique_handles.csv')
 campus_uuid_list = pd.read_csv('campusuuidlist.csv')
 
-# Function to process 'Page path and screen class' column and match with file B
+# Function to process 'Page path and screen class' column and match with file all_unique_handles
 def process_page_path(page_path):
     # Check if the path starts with /handle/
     if '/handle/' in page_path:
@@ -27,11 +27,11 @@ uuid_to_campus = {row['uuid']: row['campusName'] for _, row in campus_uuid_list.
 # Initialize output data list
 output_data = []
 
-# Iterate through rows of file A
+# Iterate through rows of file mdsoar-stats
 for _, row_a in file_a.iterrows():
     page_path_processed = process_page_path(row_a['Page path and screen class'])
     
-    # Find matching handle or resourceid in file B
+    # Find matching handle or resourceid in file all_unique_handles
     matching_row_b = file_b[(file_b['handle'] == page_path_processed) | (file_b['search.resourceid'] == page_path_processed)]
 
     if not matching_row_b.empty:
