@@ -4,7 +4,7 @@ import pdb
 
 # Read CSV files mdsoar-stats, all_unique_handles, and campus_uuid_list
 file_a = pd.read_csv('mdsoar-stats.csv')
-file_b = pd.read_csv('all_unique_handles.csv')
+file_b = pd.read_csv('all_items_unique_handles.csv')
 campus_uuid_list = pd.read_csv('campusuuidlist.csv')
 
 # Function to process 'Page path and screen class' column and match with file all_unique_handles
