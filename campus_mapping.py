@@ -1,6 +1,5 @@
 import csv
 import pandas as pd
-import pdb
 
 # Read CSV files mdsoar-stats, all_unique_handles, and campus_uuid_list
 file_a = pd.read_csv('mdsoar-stats.csv')
@@ -19,6 +18,11 @@ def process_page_path(page_path):
             if page_path.startswith(prefix):
                 page_path = page_path.replace(prefix, '').split(',')[0]
                 break
+
+    # Check if the path ends with '/full' and remove it
+    if page_path.endswith('/full'):
+        page_path = page_path[:-len('/full')]  # Remove the '/full' substring
+
     return page_path
 
 # Dictionary for fast lookup from campus_uuid_list
@@ -43,7 +47,7 @@ for _, row_a in file_a.iterrows():
         else:
             location_comm = []
 
-        campus_names = []
+        campus = ''  # Default to empty in case no match found
 
         # Match location.comm with campus_uuid_list and get corresponding campusName
         for comm_value in location_comm:
@@ -51,9 +55,8 @@ for _, row_a in file_a.iterrows():
             comm_value_cleaned = comm_value.strip().strip("'[] ")  # Remove extra quotes, brackets, and whitespace
             
             if comm_value_cleaned in uuid_to_campus:
-                campus_names.append(uuid_to_campus[comm_value_cleaned])
-        # If campus names found, join them, else leave empty
-        campus = ', '.join(campus_names) if campus_names else ''
+                campus = uuid_to_campus[comm_value_cleaned]  # Take only the first matching campus
+                break  # Stop after finding the first match
     else:
         campus = ''
     
@@ -65,7 +68,7 @@ for _, row_a in file_a.iterrows():
     })
 
 # Write output CSV file
-output_file = 'output2.csv'
+output_file = 'output3.csv'
 output_columns = ['Page path and screen class', 'Views', 'Campus']
 
 with open(output_file, mode='w', newline='', encoding='utf-8') as file:
