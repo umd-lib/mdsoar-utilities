@@ -2,9 +2,9 @@ import csv
 import pandas as pd
 
 # Read CSV files mdsoar-stats, all_unique_handles, and campus_uuid_list
-file_a = pd.read_csv('mdsoar-stats.csv')
-file_b = pd.read_csv('all_items_unique_handles.csv')
-campus_uuid_list = pd.read_csv('campusuuidlist.csv')
+file_a = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/Mdsoar-data-export-October1.csv')
+file_b = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/all_items_unique_handles.csv')
+campus_uuid_list = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/campusuuidlist.csv')
 
 # Function to process 'Page path and screen class' column and match with file all_unique_handles
 def process_page_path(page_path):
