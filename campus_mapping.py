@@ -2,9 +2,9 @@ import csv
 import pandas as pd
 
 # Read CSV files mdsoar-stats, all_unique_handles, and campus_uuid_list
-file_a = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/Mdsoar-data-export-October1.csv')
-file_b = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/all_items_unique_handles.csv')
-campus_uuid_list = pd.read_csv('/Users/nasadi1/apps/git/MDSOAR-Stats/campusuuidlist.csv')
+file_a = pd.read_csv('data-export.csv')
+file_b = pd.read_csv('all_items_unique_handles.csv')
+campus_uuid_list = pd.read_csv('campusuuidlist.csv')
 
 # Function to process 'Page path and screen class' column and match with file all_unique_handles
 def process_page_path(page_path):
@@ -47,29 +47,36 @@ for _, row_a in file_a.iterrows():
         else:
             location_comm = []
 
-        campus = ''  # Default to empty in case no match found
+        campus_list = set()  # Use a set to store unique campus names
 
         # Match location.comm with campus_uuid_list and get corresponding campusName
         for comm_value in location_comm:
             # Clean comm_value by stripping whitespace and unwanted characters
             comm_value_cleaned = comm_value.strip().strip("'[] ")  # Remove extra quotes, brackets, and whitespace
             
+            # Check if the cleaned value exists in uuid_to_campus
             if comm_value_cleaned in uuid_to_campus:
-                campus = uuid_to_campus[comm_value_cleaned]  # Take only the first matching campus
-                break  # Stop after finding the first match
+                campus_list.add(uuid_to_campus[comm_value_cleaned])  # Add matching campus to the set
+
+        # If location_comm is empty but the value itself is present in uuid_to_campus
+        if page_path_processed in uuid_to_campus:
+            campus_list.add(uuid_to_campus[page_path_processed])
+
+        campus = ', '.join(campus_list) if campus_list else ''  # Join all matching campuses or set empty
     else:
         campus = ''
     
     # Append the processed row to the output data
     output_data.append({
+        'Page title and screen class': row_a['Page title and screen class'],  # Include 'Page title and screen class'
         'Page path and screen class': row_a['Page path and screen class'],
         'Views': row_a['Views'],
         'Campus': campus
     })
 
 # Write output CSV file
-output_file = 'output3.csv'
-output_columns = ['Page path and screen class', 'Views', 'Campus']
+output_file = 'Monthly-report.csv'
+output_columns = ['Page title and screen class', 'Page path and screen class', 'Views', 'Campus']
 
 with open(output_file, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.DictWriter(file, fieldnames=output_columns)
