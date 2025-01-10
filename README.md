@@ -2,6 +2,15 @@
 
 **This repository contains files for collecting and processing downlaod and page view statsitics from MD-SOAR and related projects.**
 
+1-For collecting monthly page view statistics, first do a port-forwarding of for the mdsoar application:
+
+```
+kubectl port-forward mdsoar-solr-0 8983:8983
+```
+2-Then, run the Collect_all_unique_handles.py python file. (If any of the "requests" or "pandas" python packages aren't installed, install them through pip.)
+
+3-Then run the "Campus_mapping.py" script to map the item resouece IDs from the Google Analytic report to the Campuses in campusuuid file using the output of Collect_all_unique_handles.py .
+
 **-Collect_download_statistics.py :**
 
 This code retrieves and processes download statistics for specific items from a Solr server based on a given time range. It maps campus names to their corresponding identifiers, queries for records within the specified time frame, and counts the downloads for each item. The script then creates separate CSV files for each campus, containing unique entries of item IDs, titles, URLs, campuses, and download counts, while ensuring no duplicates are written. It handles potential missing data and outputs a message upon successful completion.
@@ -25,3 +34,4 @@ This code reads data from three CSV files to create a consolidated output CSV. I
 Note: This code uses the mdsoar-stats.csv file from Google Analytics, as well as the output of the Collect_all_unique_handles.py file as well as the campusuuidlist.csv file. 
 
 Usage: python3 Campus_mapping.py
+
