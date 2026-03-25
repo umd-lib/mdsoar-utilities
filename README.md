@@ -112,19 +112,7 @@ Monthy_Stats_Report/
 
 - Ensure the input CSV format matches expected analytics export structure
 - The script assumes a working Solr endpoint for handle retrieval
-- Some edge cases (e.g., malformed rows) may need manual cleanup
 
 ---
 
-##  Future Improvements
 
-- Enhance download statistics module
-- Add logging and error handling
-- Parallelize processing for large datasets
-- Add configuration file for endpoints and parameters
-
----
-
-## 👤 Author
-
-Developed for MD-SOAR analytics and reporting workflows.
