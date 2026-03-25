@@ -1,37 +1,130 @@
-# mdsoar-utilities
+# 📊 MD-SOAR Monthly Statistics Pipeline
 
-**This repository contains files for collecting and processing downlaod and page view statsitics from MD-SOAR and related projects.**
+This repository contains a Python-based pipeline for generating **monthly usage statistics** for MD-SOAR. It processes raw analytics reports, enriches them with repository metadata, and produces structured outputs for reporting.
 
-1-For collecting monthly page view statistics, first do a port-forwarding of for the mdsoar application:
+---
+
+## 🚀 Overview
+
+The pipeline automates the end-to-end workflow for monthly statistics generation:
+
+1. **Preprocess raw analytics data**
+2. **Collect unique repository handles from Solr**
+3. **Generate page view statistics**
+4. **(Optional) Generate download statistics**
+
+All steps are orchestrated through a single entry script.
+
+---
+
+## 📁 Project Structure
 
 ```
-kubectl port-forward mdsoar-solr-0 8983:8983
+mdsoar_stats_pipeline/
+│
+├── RunMonthlyStatsPipeline.py   # Main pipeline orchestrator
+├── Preprocessing.py             # Cleans raw analytics CSV
+├── CollectUniqueHandles.py      # Retrieves handles from Solr
+├── PageViewStats.py             # Computes page view statistics
+├── DownloadStats.py             # Handles download stats (placeholder/partial)
+├── campusuuidlist.csv           # Campus UUID → name mapping
+├── requirements.txt             # Python dependencies
+└── .gitignore
 ```
-2-Then, run the Collect_all_unique_handles.py python file. (If any of the "requests" or "pandas" python packages aren't installed, install them through pip.)
 
-3-Then run the "Campus_mapping.py" script to map the item resouece IDs from the Google Analytic report to the Campuses in campusuuid file using the output of Collect_all_unique_handles.py .
+---
 
-**-Collect_download_statistics.py :**
+## ⚙️ Requirements
 
-This code retrieves and processes download statistics for specific items from a Solr server based on a given time range. It maps campus names to their corresponding identifiers, queries for records within the specified time frame, and counts the downloads for each item. The script then creates separate CSV files for each campus, containing unique entries of item IDs, titles, URLs, campuses, and download counts, while ensuring no duplicates are written. It handles potential missing data and outputs a message upon successful completion.
+- Python 3.8+
+- Access to Solr instance (for handle collection)
+- Required Python packages:
 
-Example Usage: 
-python3 Collect_download_statistics.py "2022-05-20T00:00:00Z" "2022-05-21T00:00:00Z"
+```
+pip install -r requirements.txt
+```
 
+---
 
-**-Collect_all_unique_handles.py**:
+## 🧪 Usage
 
-This script compiles a list of items with unique handles from a Solr database into a CSV file.
+Run the full monthly pipeline:
 
-Usage:
-python3 collect_all_unique_handles.py
+```
+python3 RunMonthlyStatsPipeline.py <input_csv> <campus_csv> <start_date> <end_date> --label <LABEL>
+```
 
+### Example
 
-**-Campus_mapping.py**
+```
+python3 RunMonthlyStatsPipeline.py \
+  report_February_2026.csv \
+  campusuuidlist.csv \
+  "2026-02-01T00:00:00Z" \
+  "2026-02-28T23:59:59Z" \
+  --label "February_2026"
+```
 
-This code reads data from three CSV files to create a consolidated output CSV. It cleans and processes the Page path and screen class column, matches it with unique handles and location data, and maps these to corresponding campus names based on UUIDs. The final output includes the original page path, view counts, and matched campus names, stored in a new output CSV file.
+---
 
-Note: This code uses the mdsoar-stats.csv file from Google Analytics, as well as the output of the Collect_all_unique_handles.py file as well as the campusuuidlist.csv file. 
+## 🔄 Pipeline Steps
 
-Usage: python3 Campus_mapping.py
+### 1. Preprocessing
+- Removes unnecessary header lines from raw analytics reports
+- Outputs a clean CSV for downstream processing
 
+### 2. Collect Unique Handles
+- Queries Solr to retrieve all repository item handles
+- Deduplicates results
+
+### 3. Page View Statistics
+- Matches analytics data with repository items
+- Aggregates views by campus and item
+
+### 4. Download Statistics
+- Placeholder for download metrics (currently minimal implementation)
+
+---
+
+## 📤 Output
+
+The pipeline generates output under:
+
+```
+Monthy_Stats_Report/
+├── PageView_Statistics/
+│   └── <LABEL>_PageView.csv
+└── Download_Statistics/
+```
+
+---
+
+## 🧠 Key Features
+
+- Modular pipeline design
+- Handles large datasets (supports chunked processing)
+- Integrates analytics data with repository metadata
+- Easily extensible for additional metrics
+
+---
+
+## ⚠️ Notes
+
+- Ensure the input CSV format matches expected analytics export structure
+- The script assumes a working Solr endpoint for handle retrieval
+- Some edge cases (e.g., malformed rows) may need manual cleanup
+
+---
+
+## 🛠️ Future Improvements
+
+- Enhance download statistics module
+- Add logging and error handling
+- Parallelize processing for large datasets
+- Add configuration file for endpoints and parameters
+
+---
+
+## 👤 Author
+
+Developed for MD-SOAR analytics and reporting workflows.
