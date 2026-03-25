@@ -19,7 +19,7 @@ jstuff = r.json()
 
 if 'response' in jstuff:
     records = jstuff['response']['docs']
-    output_filename = "all_items_unique_handles.csv"
+    output_filename = "all_items_unique_handles_Feb2025.csv"
     
     # Set to track unique handles
     unique_handles = set()
