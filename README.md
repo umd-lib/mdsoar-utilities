@@ -1,10 +1,10 @@
-# 📊 MD-SOAR Monthly Statistics Pipeline
+#  MD-SOAR Monthly Statistics Pipeline
 
 This repository contains a Python-based pipeline for generating **monthly usage statistics** for MD-SOAR. It processes raw analytics reports, enriches them with repository metadata, and produces structured outputs for reporting.
 
 ---
 
-## 🚀 Overview
+##  Overview
 
 The pipeline automates the end-to-end workflow for monthly statistics generation:
 
@@ -17,7 +17,7 @@ All steps are orchestrated through a single entry script.
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 mdsoar_stats_pipeline/
@@ -34,7 +34,7 @@ mdsoar_stats_pipeline/
 
 ---
 
-## ⚙️ Requirements
+##  Requirements
 
 - Python 3.8+
 - Access to Solr instance (for handle collection)
@@ -46,7 +46,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🧪 Usage
+##  Usage
 
 Run the full monthly pipeline:
 
@@ -67,7 +67,7 @@ python3 RunMonthlyStatsPipeline.py \
 
 ---
 
-## 🔄 Pipeline Steps
+##  Pipeline Steps
 
 ### 1. Preprocessing
 - Removes unnecessary header lines from raw analytics reports
@@ -86,7 +86,7 @@ python3 RunMonthlyStatsPipeline.py \
 
 ---
 
-## 📤 Output
+##  Output
 
 The pipeline generates output under:
 
@@ -99,7 +99,7 @@ Monthy_Stats_Report/
 
 ---
 
-## 🧠 Key Features
+##  Key Features
 
 - Modular pipeline design
 - Handles large datasets (supports chunked processing)
@@ -108,7 +108,7 @@ Monthy_Stats_Report/
 
 ---
 
-## ⚠️ Notes
+##  Notes
 
 - Ensure the input CSV format matches expected analytics export structure
 - The script assumes a working Solr endpoint for handle retrieval
@@ -116,7 +116,7 @@ Monthy_Stats_Report/
 
 ---
 
-## 🛠️ Future Improvements
+##  Future Improvements
 
 - Enhance download statistics module
 - Add logging and error handling
