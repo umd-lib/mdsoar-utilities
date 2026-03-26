@@ -109,10 +109,10 @@ Monthy_Stats_Report/
 
 ##  Key Features
 
-- Modular pipeline design
-- Handles large datasets (supports chunked processing)
+- Modular pipeline design which can be used inside a crobjob in the future
+- Handles large datasets
 - Integrates analytics data with repository metadata
-- Easily extensible for additional metrics
+- Extensible for additional metrics
 
 ---
 
