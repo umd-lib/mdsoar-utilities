@@ -11,7 +11,7 @@ The pipeline automates the end-to-end workflow for monthly statistics generation
 1. **Preprocess raw analytics data**
 2. **Collect unique repository handles from Solr**
 3. **Generate page view statistics**
-4. **(Optional) Generate download statistics**
+4. **Generate download statistics**
 
 All steps are orchestrated through a single entry script.
 
