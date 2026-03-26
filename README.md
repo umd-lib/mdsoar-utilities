@@ -48,7 +48,13 @@ pip install -r requirements.txt
 
 ##  Usage
 
-Run the full monthly pipeline:
+Apply the port-forwarding for Solr:
+
+```
+kubectl port-forward mdsoar-solr-0 8983:8983
+```
+
+In a separate tab run the full monthly pipeline:
 
 ```
 python3 RunMonthlyStatsPipeline.py <input_csv> <campus_csv> <start_date> <end_date> --label <LABEL>
