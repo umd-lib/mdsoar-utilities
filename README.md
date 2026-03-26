@@ -62,6 +62,8 @@ python3 RunMonthlyStatsPipeline.py <input_csv> <campus_csv> <start_date> <end_da
 
 ### Example
 
+(report_February_2026.csv is the Google Analytics generated csv file.)
+
 ```
 python3 RunMonthlyStatsPipeline.py \
   report_February_2026.csv \
@@ -70,7 +72,7 @@ python3 RunMonthlyStatsPipeline.py \
   "2026-02-28T23:59:59Z" \
   --label "February_2026"
 ```
-Where report_February_2026.csv is the Google Analytics generated csv file.
+
 ---
 
 ##  Pipeline Steps
