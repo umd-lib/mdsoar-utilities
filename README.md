@@ -40,9 +40,23 @@ mdsoar_stats_pipeline/
 - Access to Solr instance (for handle collection)
 - Required Python packages:
 
+
+Note: if you are using windowns Linux subsystem, before installing the requirements you can try:
+
+```
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install requests
+```
+
+
+
 ```
 pip install -r requirements.txt
 ```
+
+
+
 
 ---
 
